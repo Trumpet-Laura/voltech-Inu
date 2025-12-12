@@ -31,9 +31,20 @@ function App() {
     }
   };
 
+  // 追加：完了済みの履歴データを取ってくる
+  const fetchHistory = async () => {
+    try {
+      const res = await axios.get("http://localhost/voltech-Inu/api/get_history.php");
+      setHistory(res.data); // 履歴リストを更新
+    } catch (err) {
+      console.error("履歴取得エラー", err);
+    }
+  };
+
   // ■ 追加: アプリを開いた瞬間にデータを読み込む
   useEffect(() => {
-    fetchQuests();
+    fetchQuests();  // 未完了クエストを取得
+    fetchHistory(); // 完了済み履歴を取得
   }, []);
 
   // ■ 修正: async を追加しました！
