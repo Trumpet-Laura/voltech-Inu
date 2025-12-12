@@ -62,11 +62,21 @@ function App() {
     }
   };
 
-  const completeQuest = (id) => {
-    const targetQuest = quests.find(q => q.id === id);
-    if (targetQuest) {
-      setHistory([targetQuest, ...history]);
-      setQuests(quests.filter(q => q.id !== id));
+  const completeQuest = async(id) => {
+    try {
+      // 1. PHPに完了報告
+      await axios.post("http://localhost/voltech-Inu/api/complete_quest.php", { id: id });
+
+      // 2. 成功したら画面からも消す
+      const targetQuest = quests.find(q => q.id === id);
+      if (targetQuest) {
+        setHistory([targetQuest, ...history]);
+        setQuests(quests.filter(q => q.id !== id));
+      }
+      console.log("完了したクエストID:", id)
+    } catch (err) {
+      console.log("完了エラー：", err);
+      alert("完了処理に失敗しました");
     }
   };
 
