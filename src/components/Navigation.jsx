@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+
 const Navigation = () => {
   const location = useLocation();
 
-  // スタート画面ではメニューを表示しない
   if (location.pathname === '/') {
     return null;
   }
@@ -12,8 +12,9 @@ const Navigation = () => {
   const navStyle = {
     position: 'fixed',
     bottom: 0,
-    left: 0,
+    // left: 0,  <-- これを削除（またはコメントアウト）
     width: '100%',
+    maxWidth: '480px', // ★ここを追加！親と同じ幅に制限する
     height: '60px',
     background: '#fff',
     borderTop: '1px solid #ddd',
