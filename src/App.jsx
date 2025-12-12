@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';  //追加：通信するための道具
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StartPage from './pages/StartPage';     // 0ページ
@@ -24,6 +24,10 @@ function App() {
       //PHPのget_quests.phpに電話をかける 
       const res = await axios.get("http://localhost/voltech-Inu/api/get_quests.php");
       console.log("取得したデータ：", res.data); // 確認用ログ
+
+      // 追加：questsにデータを保持
+      setQuests(res.data);
+
     } catch (err) {
       console.error("データ取得エラー：", err)
     }
@@ -45,12 +49,16 @@ function App() {
     };
     
     try {
-      // PHPのadd_quest.phpにデータを送る
+      //1. PHPのadd_quest.phpにデータを送る
       await axios.post("http://localhost/voltech-Inu/api/add_quest.php", newQuest);
 
-      // 成功したら、リストを再取得して画面を最新にする
-      fetchQuests();
       alert("登録しました！"); // (任意)　ユーザーへの報告
+
+      //2. 成功したら、リストを再取得して画面を最新にする
+      fetchQuests();
+
+      window.location.href = "/board";
+
     } catch (err) {
       console.error("登録エラー：", err);
       alert("登録に失敗しました");
