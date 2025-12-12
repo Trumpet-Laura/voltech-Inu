@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useEffectを追加
+import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StartPage from './pages/StartPage';
 import QuestBoard from './pages/QuestBoard';
@@ -8,20 +9,44 @@ import HistoryPage from './pages/HistoryPage';
 import Navigation from './components/Navigation';
 
 function App() {
-  const [quests, setQuests] = useState([
-    { id: 1, title: '資格の勉強を30分する', difficulty: 3, category: '継続力' },
-    { id: 2, title: 'ボランティアサイトを見る', difficulty: 2, category: '行動力' },
-  ]);
+  const [quests, setQuests] = useState([]);
   const [history, setHistory] = useState([]);
 
-  const addQuest = (title, difficulty, category) => {
+  // ■ 追加: データをサーバーから取ってくる関数
+  const fetchQuests = async () => {
+    try {
+      // 自分のAPIのURLに合わせてね
+      const res = await axios.get("http://localhost/voltech-Inu/api/get_quests.php");
+      setQuests(res.data);
+    } catch (err) {
+      console.error("データ取得エラー:", err);
+    }
+  };
+
+  // ■ 追加: アプリを開いた瞬間にデータを読み込む
+  useEffect(() => {
+    fetchQuests();
+  }, []);
+
+  // ■ 修正: async を追加しました！
+  const addQuest = async (title, difficulty, category) => {
     const newQuest = {
-      id: Date.now(),
+      user_id: 1,
       title: title,
       difficulty: difficulty,
-      category: category, 
+      category: category
     };
-    setQuests([...quests, newQuest]);
+    
+    try {
+      await axios.post("http://localhost/voltech-Inu/api/add_quest.php", newQuest);
+
+      // 成功したらリストを再取得
+      fetchQuests();
+      alert("登録しました！");
+    } catch (err) {
+      console.error("登録エラー：", err);
+      alert("登録に失敗しました");
+    }
   };
 
   const completeQuest = (id) => {
@@ -34,9 +59,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* ここを変更しました！
-        width: 100% にすることで、親の #root (max-width:480px) にピッタリ合わせます
-      */}
       <div className="App" style={{ width: '100%', paddingBottom: '70px', boxSizing: 'border-box' }}>
         <Routes>
           <Route path="/" element={<StartPage />} />
@@ -46,7 +68,6 @@ function App() {
           <Route path="/history" element={<HistoryPage history={history} />} />
         </Routes>
         
-        {/* メニューバー */}
         <Navigation />
       </div>
     </BrowserRouter>
