@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // 変更：useStateとuseEffectを追加
+import axios from 'axios';  // 変更：通信用のaxiosを追加
+
 // 1. Chart.js で使う部品をインポート
 import {
   Chart as ChartJS,
@@ -23,12 +25,36 @@ ChartJS.register(
 );
 
 const StatusPage = () => {
-  // 本来はバックエンドから受け取るデータ
-  const myStats = {
-    action: 80,    // 行動力
-    thinking: 40,  // 思考力
-    dialogue: 60   // 対話力
-  };
+  //　変更：データを保存するためのstateを作成、初期値を0に設定
+  const [myStats, setMyStats] = useState({
+    level: 1,     // レベル
+    exp: 0,       // 経験値
+    action: 0,    // 行動力
+    thinking: 0,  // 思考力
+    dialogue: 0   // 対話力　(APIのcommunication)
+  });
+
+  // 変更：画面が開いた瞬間に、APIからデータを取ってくる処理を追加
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await axios.get("http://localhost/voltech-Inu/api/get_user_stats.php");
+
+        // APIから帰ってきたデータを、画面用の変数に入れる
+        // API側は{ thinking, communication, action }なので、名前に気を付けてセット
+        setMyStats({
+          level: res.data.level,
+          exp: res.data.exp,
+          action: res.data.status.action,
+          thinking: res.data.status.thinking,
+          dialogue: res.data.status.communication // APIではcommunication、画面ではdialogue
+        });
+      } catch (err) {
+        console.error("ステータス取得エラー：", err);
+      }
+    };
+    fetchStats();
+  }, []);
 
   // 4. グラフに渡すデータの設定
   const data = {
@@ -36,6 +62,7 @@ const StatusPage = () => {
     datasets: [
       {
         label: '現在のステータス',
+        // 変更：固定値ではなく、APIからとったデータ（state）を使う仕様にした
         data: [myStats.action, myStats.thinking, myStats.dialogue], // 実際の数値
         backgroundColor: 'rgba(255, 127, 80, 0.2)', // 中の色（薄いオレンジ）
         borderColor: 'rgba(255, 127, 80, 1)',       // 線の色（濃いオレンジ）
@@ -75,6 +102,14 @@ const StatusPage = () => {
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
       <h2>現在のステータス</h2>
+
+      {/* 追加：レベルと経験値を表示するエリアを追加 */}
+      <div style={{ marginBottom: '20px'}}>
+        <h1 style={{ fontSize: '2.5rem', margin: '10px 0'}}>
+          Lv.<span style={{ color: 'e91e63'}}>{myStats.level}</span>
+        </h1>
+        <p>総経験値: {myStats.exp} exp</p>
+      </div>
 
       {/* ▼ Chart.jsの描画エリア ▼ */}
       <div style={{ width: '300px', margin: '0 auto' }}>
