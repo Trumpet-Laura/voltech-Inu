@@ -29,26 +29,27 @@ const StatusPage = () => {
   const [myStats, setMyStats] = useState({
     level: 1,     // レベル
     exp: 0,       // 経験値
-    action: 0,    // 行動力
-    thinking: 0,  // 思考力
-    dialogue: 0   // 対話力　(APIのcommunication)
+    levels: { action: 1, thinking: 1, communication: 1 },
+    points: { thinking: 0, communication: 0, action: 0 }
   });
 
   // 変更：画面が開いた瞬間に、APIからデータを取ってくる処理を追加
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://192.168.100.194/voltech-Inu/api/get_user_stats.php");
+        const res = await axios.get("http://192.168.100.194/voltech-Inu/api/get_user_status.php");
 
-        // APIから帰ってきたデータを、画面用の変数に入れる
-        // API側は{ thinking, communication, action }なので、名前に気を付けてセット
-        setMyStats({
-          level: res.data.level,
-          exp: res.data.exp,
-          action: res.data.status.action,
-          thinking: res.data.status.thinking,
-          dialogue: res.data.status.communication // APIではcommunication、画面ではdialogue
-        });
+        if (res.data && res.data.status_levels){
+          console.log("APIから届いたデータ：", res.data);
+          // APIから帰ってきたデータを、画面用の変数に入れる
+          // API側は{ thinking, communication, action }なので、名前に気を付けてセット
+          setMyStats({
+            level: res.data.level,
+            exp: res.data.exp,
+            levels: res.data.status_levels,
+            points: res.data.status_points
+          });
+        } 
       } catch (err) {
         console.error("ステータス取得エラー：", err);
       }
@@ -58,7 +59,11 @@ const StatusPage = () => {
 
   // 4. グラフに渡すデータの設定
   const data = {
-    labels: ['行動力', '思考力', '対話力'], // 角の名前
+    labels: [
+      `行動力 Lv.${myStats.levels.action}`,
+      `思考力 Lv.${myStats.levels.thinking}`,
+      `対話力 Lv.${myStats.levels.communication}`
+    ], // 角の名前
     datasets: [
       {
         label: '現在のステータス',
@@ -77,9 +82,10 @@ const StatusPage = () => {
     scales: {
       r: {
         min: 0,   // 最小値
-        max: 100, // 最大値
+        //max: 100, // 最大値
+        suggestedMax: myStats.level + 2,
         ticks: {
-          stepSize: 20, // 目盛りの間隔
+          stepSize: 1, // 目盛りの間隔
           backdropColor: 'transparent', // 目盛りの背景を透明に
         },
         grid: {
@@ -117,9 +123,9 @@ const StatusPage = () => {
       </div>
 
       <div style={{ marginTop: '20px', textAlign: 'left', display: 'inline-block' }}>
-        <p>🏃 行動力: Lv.{myStats.action}</p>
-        <p>🧠 思考力: Lv.{myStats.thinking}</p>
-        <p>🗣️ 対話力: Lv.{myStats.dialogue}</p>
+        <p>🏃 行動力: <b>Lv.{myStats.levels.action}</b> <span style={{fontSize:'0.8em', color:'#666'}}>({myStats.points.action} exp)</span></p>
+        <p>🧠 思考力: <b>Lv.{myStats.levels.thinking}</b> <span style={{fontSize:'0.8em', color:'#666'}}>({myStats.points.thinking} exp)</span></p>
+        <p>🗣️ 対話力: <b>Lv.{myStats.levels.communication}</b> <span style={{fontSize:'0.8em', color:'#666'}}>({myStats.points.communication} exp)</span></p>
       </div>
     </div>
   );
