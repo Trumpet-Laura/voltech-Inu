@@ -20,6 +20,25 @@ try {
         'action' => 0         // 行動力 (赤)
     ];
 
+    // デバッグ
+    $debug_ignored = [];
+
+    // 変換
+    $map = [
+        '思考力' => 'thinking',
+        'thinking' => 'thinking',
+        'Thinking' => 'thinking',
+
+        '対話力' => 'communication',
+        'communication' => 'communication',
+        'Communication' => 'communication',
+        'dialogue' => 'communication',
+
+        '行動力' => 'action',
+        'action' => 'action',
+        'Action' => 'action'
+    ];
+
     // 3. ループして計算
     foreach ($quests as $q) {
         // 難易度1につき10ポイントとして計算
@@ -29,9 +48,15 @@ try {
         $total_exp += $points;
 
         // カテゴリごとのパラメータに足す
+        $raw_category = trim($q['category']);
+
         // (DBに保存されたカテゴリ名とキーが一致する場合のみ加算)
-        if (isset($status[$q['category']])) {
-            $status[$q['category']] += $points;
+        if (isset($map[$raw_category])) {
+            $key = $map[$raw_category];
+            $status[$key] += $points;
+        } else {
+            // マッチしなかったカテゴリをリストに追加
+            $debug_ignored[] = $q['category'];
         }
     }
 
@@ -43,8 +68,9 @@ try {
     echo json_encode([
         "level" => $level,
         "exp" => $total_exp,
-        "status" => $status
-    ]);
+        "status" => $status,
+        "debug_ignored" => $debug_ignored
+    ], JSON_UNESCAPED_UNICODE);
 
 } catch (PDOException $e) {
     echo json_encode(["status" => "error", "message" => $e->getMessage()]);
