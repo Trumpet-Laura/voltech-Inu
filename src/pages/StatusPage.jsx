@@ -38,7 +38,7 @@ const StatusPage = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost/voltech-Inu/api/get_user_stats.php");
+        const res = await axios.get("http://192.168.100.194/voltech-Inu/api/get_user_stats.php");
 
         // APIから帰ってきたデータを、画面用の変数に入れる
         // API側は{ thinking, communication, action }なので、名前に気を付けてセット
