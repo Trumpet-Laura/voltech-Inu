@@ -68,7 +68,7 @@ const StatusPage = () => {
       {
         label: '現在のステータス',
         // 変更：固定値ではなく、APIからとったデータ（state）を使う仕様にした
-        data: [myStats.action, myStats.thinking, myStats.dialogue], // 実際の数値
+        data: [myStats.levels.action, myStats.levels.thinking, myStats.levels.communication], // 実際の数値
         backgroundColor: 'rgba(255, 127, 80, 0.2)', // 中の色（薄いオレンジ）
         borderColor: 'rgba(255, 127, 80, 1)',       // 線の色（濃いオレンジ）
         borderWidth: 2,
@@ -83,7 +83,7 @@ const StatusPage = () => {
       r: {
         min: 0,   // 最小値
         //max: 100, // 最大値
-        suggestedMax: myStats.level + 2,
+        suggestedMax: myStats.level + 1,
         ticks: {
           stepSize: 1, // 目盛りの間隔
           backdropColor: 'transparent', // 目盛りの背景を透明に
