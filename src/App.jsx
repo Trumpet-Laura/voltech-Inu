@@ -93,7 +93,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App" style={{ width: '100%', paddingBottom: '70px', boxSizing: 'border-box' }}>
+      <div className="App" style={{ width: '100%', boxSizing: 'border-box' }}>
         <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/board" element={<QuestBoard quests={quests} onComplete={completeQuest} />} />
