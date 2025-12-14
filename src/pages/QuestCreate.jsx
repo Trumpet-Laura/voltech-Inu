@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import boardBg from '../assets/board-bg.png';
+import CreateLogo from '../assets/AtarashiQuest.png';
 
 const QuestCreate = ({ onAddQuest }) => {
   const [formTitle, setFormTitle] = useState("");
@@ -24,7 +25,17 @@ const QuestCreate = ({ onAddQuest }) => {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }}>
-      <h2>新しいクエストを作成</h2>
+       <img
+  src={CreateLogo}
+  alt="新しいクエストを作成"
+  style={{
+    display: 'block',
+    margin: '0 auto 0px', // 中央寄せ＋下余白
+    width: '240px',        // ロゴサイズ（調整してOK）
+    filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'
+  }}
+/>
+      
       
       {/* タイトル入力 */}
       <div style={{ marginBottom: '20px' }}>
