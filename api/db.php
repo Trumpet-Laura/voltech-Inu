@@ -1,7 +1,7 @@
 <?php
 // === CORS設定（ここが最強の許可証） ===
 // どのサイトからでもアクセスOK
-header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Origin: *");
 // JSONなどのデータを送ってもOK
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 // GET, POST, OPTIONS どの方法でもOK

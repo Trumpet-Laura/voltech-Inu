@@ -19,7 +19,7 @@ function App() {
   const fetchQuests = async () => {
     try {
       // 自分のAPIのURLに合わせてね
-      const res = await axios.get("http://localhost/voltech-Inu/api/get_quests.php");
+      const res = await axios.get("http://192.168.100.194/voltech-Inu/api/get_quests.php");
 
       console.log("取得したデータ：", res.data); // 確認用ログ
 
@@ -34,7 +34,7 @@ function App() {
   // 追加：完了済みの履歴データを取ってくる
   const fetchHistory = async () => {
     try {
-      const res = await axios.get("http://localhost/voltech-Inu/api/get_history.php");
+      const res = await axios.get("http://192.168.100.194/voltech-Inu/api/get_history.php");
       setHistory(res.data); // 履歴リストを更新
     } catch (err) {
       console.error("履歴取得エラー", err);
@@ -58,7 +58,7 @@ function App() {
     
     try {
       //1. PHPのadd_quest.phpにデータを送る
-      await axios.post("http://localhost/voltech-Inu/api/add_quest.php", newQuest);
+      await axios.post("http://192.168.100.194/voltech-Inu/api/add_quest.php", newQuest);
 
       alert("登録しました！"); // (任意)　ユーザーへの報告
 
@@ -76,7 +76,7 @@ function App() {
   const completeQuest = async(id) => {
     try {
       // 1. PHPに完了報告
-      await axios.post("http://localhost/voltech-Inu/api/complete_quest.php", { id: id });
+      await axios.post("http://192.168.100.194/voltech-Inu/api/complete_quest.php", { id: id });
 
       // 2. 成功したら画面からも消す
       const targetQuest = quests.find(q => q.id === id);
