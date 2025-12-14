@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import QuestItem from '../components/QuestItem';
+import boardBg from '../assets/board-bg.png';
+import boardLogo from '../assets/787037c2bdb004f8.png';
 
 const QuestBoard = ({ quests, onComplete }) => {
   // 残り時間を保存する箱を用意
@@ -55,6 +57,7 @@ const QuestBoard = ({ quests, onComplete }) => {
   };
 
   return (
+
     <div style={{ padding: '20px', paddingBottom: '80px' }}>
       {/* カウントダウン表示エリア */}
       <div style={{ 

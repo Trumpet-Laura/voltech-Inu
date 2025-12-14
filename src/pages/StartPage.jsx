@@ -1,6 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+import startBtnImage from '../assets/Starttouka.png';
+
 const StartPage = () => {
   const navigate = useNavigate();
 
@@ -60,21 +63,28 @@ const StartPage = () => {
         </p>
 
         <button
-          onClick={() => navigate('/board')}
-          style={{
-            padding: '15px 50px',
-            fontSize: '1.2rem',
-            background: '#ff7f50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '30px',
-            fontWeight: 'bold',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
-            cursor: 'pointer',
-          }}
-        >
-          START
-        </button>
+  onClick={() => navigate('/board')}
+  style={{
+    background: 'none',
+    border: 'none',
+    padding: 0,
+    cursor: 'pointer',
+    display: 'block',      // ← 追加
+    margin: '0 auto',  // ← 追加
+  }}
+>
+  <img
+    src={startBtnImage}
+    alt="START"
+    style={{
+      width: '220px',      // 好きなサイズに調整
+      height: 'auto',
+      filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+      display: 'block',
+      margin: '0 auto',
+    }}
+  />
+</button>
       </div>
     </div>
   );

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import boardBg from '../assets/board-bg.png';
+import CreateLogo from '../assets/AtarashiQuest.png';
+import Createlist from '../assets/Adobe_Express_-_file_1.png';
 
 const QuestCreate = ({ onAddQuest }) => {
   const [formTitle, setFormTitle] = useState("");
@@ -16,8 +19,24 @@ const QuestCreate = ({ onAddQuest }) => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>新しいクエストを作成</h2>
+    <div style={{ padding: '20px' 
+      , minHeight: '100vh',
+      backgroundImage: `url(${boardBg})`,
+      backgroundSize: 'cover',       // 全体にフィット
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+       <img
+  src={CreateLogo}
+  alt="新しいクエストを作成"
+  style={{
+    display: 'block',
+    margin: '0 auto 0px', // 中央寄せ＋下余白
+    width: '240px',        // ロゴサイズ（調整してOK）
+    filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'
+  }}
+/>
+      
       
       {/* タイトル入力 */}
       <div style={{ marginBottom: '20px' }}>
@@ -59,12 +78,27 @@ const QuestCreate = ({ onAddQuest }) => {
         </select>
       </div>
 
-      <button 
-        onClick={handleSubmit}
-        style={{ width: '100%', padding: '15px', background: '#333', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem' }}
-      >
-        リストに追加する
-      </button>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button 
+          onClick={handleSubmit}
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+          }}
+        >
+          <img
+            src={Createlist}
+            alt="リストに追加"
+            style={{
+              width: '220px',
+              height: 'auto',
+              filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+            }}
+        　　/>
+        </button>
+      </div>
     </div>
   );
 };
