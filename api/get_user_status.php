@@ -1,19 +1,61 @@
 <?php
+date_default_timezone_set('Asia/Tokyo');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
+
 require 'db.php';
 
 // 今はユーザーID:1 固定
 $user_id = 1;
 
 try {
-    // 1. データの取得
-    $sql = "SELECT category, difficulty FROM quests WHERE user_id = :uid AND is_completed = 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':uid' => $user_id]);
-    $quests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // 1. さぼり判定：最後に完了した日時を取得
+    $sql_check = "SELECT MAX(completed_at) as last_active FROM quests WHERE user_id = :uid AND is_completed = 1 AND is_active = 1";
+    $stmt_check = $pdo->prepare($sql_check);
+    $stmt_check->execute([':uid' => $user_id]);
+    $result = $stmt_check->fetch(PDO::FETCH_ASSOC);
+
+    $last_active = $result['last_active'];
+    $seconds_remaining = null;  // あと何秒でリセットか
+    $is_reset_just_now = false; // 今リセットされたか
+
+    $quests = [];
+
+    if ($last_active) {
+        // 最後に活動した時間 + 7日間 = リミット日時
+        $limit_time = strtotime($last_active) + 10;
+        $current_time = time(); // 今の時間
+
+        // もし「今の時間」が「リミット」を過ぎていたら...^^
+        if ($current_time > $limit_time) {
+            // 強制リセット★
+            // すべてのクエストを未完了（0）にし、日時（completed_at）も消す
+            $sql_reset = "UPDATE quests SET is_active = 0 WHERE user_id = :uid";
+            $stmt_reset = $pdo->prepare($sql_reset);
+            $stmt_reset->execute([':uid' => $user_id]);
+
+            
+
+            $is_reset_just_now = true;
+            // リセットされたので、クエストデータは空っぽのまま進む
+            $quests = [];
+
+        } else {
+            // セーフなら、残り時間を計算
+            $seconds_remaining = $limit_time - $current_time;
+
+            // 通常通りデータを取得する
+                $sql = "SELECT category, difficulty FROM quests WHERE user_id = :uid AND is_completed = 1 AND is_active = 1";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([':uid' => $user_id]);
+                $quests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    } else {
+        // まだ一度も完了していない場合
+        $quests = []; 
+    }
 
     // 2. 集計用の変数を準備
     $total_exp = 0; // 総経験値
@@ -86,6 +128,10 @@ try {
         "exp" => $total_exp,
         "status_points" => $status_points,
         "status_levels" => $status_levels,
+        "penalty_info" => [
+            "remaining_seconds" => $seconds_remaining,
+            "is_reset" => $is_reset_just_now
+        ],
         "debug_ignored" => $debug_ignored
     ], JSON_UNESCAPED_UNICODE);
 
