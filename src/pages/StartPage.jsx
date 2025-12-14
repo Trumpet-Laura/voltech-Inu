@@ -41,7 +41,7 @@ const StartPage = () => {
         }}
       >
         <h1 style={{
-    fontSize: '3.5rem', // 重厚なフォントは少し大きい方が映えます！
+    fontSize: '3rem', // 重厚なフォントは少し大きい方が映えます！
     marginBottom: '10px',
     fontWeight: 900,    // 太さを最大にする
     letterSpacing: '0.05em', // 少し文字間隔を空けるとリッチに見えます
@@ -54,7 +54,7 @@ const StartPage = () => {
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)', // 黒い影を落とす
   }}
 >
-  Re: ガクチカ
+  Re:ゼロから始める<br />ガクチカ生活
         </h1>
 
         <p style={{ marginBottom: '40px', lineHeight: '1.6' }}>
