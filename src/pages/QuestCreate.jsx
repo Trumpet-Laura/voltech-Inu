@@ -41,13 +41,13 @@ const QuestCreate = ({ onAddQuest }) => {
       {/* タイトル入力 */}
       <div style={{ marginBottom: '20px' }}>
         <label style={{ fontWeight: 'bold',
-          fontFamily: '"Noto Serif JP", serif'
+          
          }}>タイトル</label>
         <input 
           type="text" 
           value={formTitle}
           onChange={(e) => setFormTitle(e.target.value)}
-          style={{ width: '100%', padding: '10px', marginTop: '5px', fontSize: '16px' }}
+          style={{ width: '100%', padding: '10px', marginTop: '5px', fontSize: '16px',boxSizing: 'border-box' }}
           placeholder="例: 知らない駅で降りて散歩する"
         />
       </div>
