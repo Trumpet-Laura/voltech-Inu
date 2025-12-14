@@ -16,7 +16,7 @@ const Navigation = () => {
     width: '100%',
     maxWidth: '480px', // ★ここを追加！親と同じ幅に制限する
     height: '60px',
-    background: '#fff',
+    background: '#cd853f',
     borderTop: '1px solid #ddd',
     display: 'flex',
     justifyContent: 'space-around',

@@ -69,6 +69,8 @@ const StartPage = () => {
     border: 'none',
     padding: 0,
     cursor: 'pointer',
+    display: 'block',      // ← 追加
+    margin: '0 auto',  // ← 追加
   }}
 >
   <img
@@ -78,6 +80,8 @@ const StartPage = () => {
       width: '220px',      // 好きなサイズに調整
       height: 'auto',
       filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+      display: 'block',
+      margin: '0 auto',
     }}
   />
 </button>
