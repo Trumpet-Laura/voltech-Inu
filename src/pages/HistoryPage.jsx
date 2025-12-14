@@ -1,8 +1,15 @@
 import React from 'react';
+import boardBg from '../assets/board-bg.png';
 
 const HistoryPage = ({ history }) => {
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px'
+      , minHeight: '100vh',
+      backgroundImage: `url(${boardBg})`,
+      backgroundSize: 'cover',       // 全体にフィット
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+     }}>
       <h2>クエスト達成履歴</h2>
       {history.length === 0 ? (
         <p>まだ達成したクエストはありません。</p>
