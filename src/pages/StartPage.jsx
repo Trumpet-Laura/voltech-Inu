@@ -41,7 +41,7 @@ const StartPage = () => {
         }}
       >
         <h1 style={{
-    fontSize: '3rem', // 重厚なフォントは少し大きい方が映えます！
+    fontSize: '2.5rem', // 重厚なフォントは少し大きい方が映えます！
     marginBottom: '10px',
     fontWeight: 900,    // 太さを最大にする
     letterSpacing: '0.05em', // 少し文字間隔を空けるとリッチに見えます
