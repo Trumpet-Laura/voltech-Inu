@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import boardBg from '../assets/board-bg.png';
 import CreateLogo from '../assets/AtarashiQuest.png';
+import Createlist from '../assets/Adobe_Express_-_file_1.png';
 
 const QuestCreate = ({ onAddQuest }) => {
   const [formTitle, setFormTitle] = useState("");
@@ -79,9 +80,22 @@ const QuestCreate = ({ onAddQuest }) => {
 
       <button 
         onClick={handleSubmit}
-        style={{ width: '100%', padding: '15px', background: '#333', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem' }}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          cursor: 'pointer',
+        }}
       >
-        リストに追加する
+        <img
+          src={Createlist}
+          alt="START"
+          style={{
+            width: '220px',      // 好きなサイズに調整
+            height: 'auto',
+            filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+          }}
+      　　/>
       </button>
     </div>
   );
