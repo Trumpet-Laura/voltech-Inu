@@ -58,7 +58,12 @@ const QuestBoard = ({ quests, onComplete }) => {
 
   return (
 
-    <div style={{ padding: '20px', paddingBottom: '80px' }}>
+    <div style={{ padding: '20px'
+      , minHeight: '100vh',
+      backgroundImage: `url(${boardBg})`,
+      backgroundSize: 'cover',       // 全体にフィット
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat', }}>
       {/* カウントダウン表示エリア */}
       <div style={{ 
         background: '#212121',       // 黒っぽい背景でデジタル時計風
@@ -78,7 +83,17 @@ const QuestBoard = ({ quests, onComplete }) => {
         </span>
       </div>
 
-      <h2 style={{ borderBottom: '2px solid #333', paddingBottom: '10px' }}>クエスト掲示板</h2>
+      <img
+  src={boardLogo}
+  alt="クエスト掲示板"
+  style={{
+    display: 'block',
+    margin: '0 auto 10px', // 中央寄せ＋下余白
+    width: '300px',        // ロゴサイズ（調整してOK）
+    maxWidth: 'none',
+    filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'
+  }}
+/>
       
       {quests.length === 0 ? (
         <p>現在挑戦中のクエストはありません。<br/>「＋」ボタンから追加しよう！</p>

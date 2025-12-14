@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import QuestItem from '../components/QuestItem';
+import boardBg from '../assets/board-bg.png';
 
 const QuestPage = () => {
   // 1. 仮のデータ（データベース代わり）
@@ -30,6 +31,7 @@ const QuestPage = () => {
   };
 
   return (
+    
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', display: 'flex', gap: '20px' }}>
       
       {/* --- 左側：クエスト掲示板 --- */}
