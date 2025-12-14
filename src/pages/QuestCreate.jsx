@@ -78,25 +78,27 @@ const QuestCreate = ({ onAddQuest }) => {
         </select>
       </div>
 
-      <button 
-        onClick={handleSubmit}
-        style={{
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          cursor: 'pointer',
-        }}
-      >
-        <img
-          src={Createlist}
-          alt="START"
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button 
+          onClick={handleSubmit}
           style={{
-            width: '220px',      // 好きなサイズに調整
-            height: 'auto',
-            filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
           }}
-      　　/>
-      </button>
+        >
+          <img
+            src={Createlist}
+            alt="リストに追加"
+            style={{
+              width: '220px',
+              height: 'auto',
+              filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+            }}
+        　　/>
+        </button>
+      </div>
     </div>
   );
 };
