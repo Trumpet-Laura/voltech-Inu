@@ -25,7 +25,7 @@ try {
 
     if ($last_active) {
         // 最後に活動した時間 + 7日間 = リミット日時
-        $limit_time = strtotime($last_active) + 10;
+        $limit_time = strtotime($last_active) + 30;
         $current_time = time(); // 今の時間
 
         // もし「今の時間」が「リミット」を過ぎていたら...^^
@@ -110,7 +110,7 @@ try {
     // 例：100exp→Lv2, 400exp→Lv3, 900exp→Lv4...
     function calcLevel($exp) {
         if ($exp <= 0) return 1;
-        return 1 + floor(sqrt($exp / 100));
+        return 1 + floor(sqrt($exp / 30));
     }
 
     // メインレベル
