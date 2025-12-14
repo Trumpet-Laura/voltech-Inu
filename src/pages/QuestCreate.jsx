@@ -41,7 +41,7 @@ const QuestCreate = ({ onAddQuest }) => {
       {/* タイトル入力 */}
       <div style={{ marginBottom: '20px' }}>
         <label style={{ fontWeight: 'bold',
-          
+          fontFamily: '"Noto Serif JP", serif'
          }}>タイトル</label>
         <input 
           type="text" 
