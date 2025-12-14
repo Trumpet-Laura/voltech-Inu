@@ -44,19 +44,19 @@ const Navigation = () => {
     <nav style={navStyle}>
       <Link to="/board" style={getStyle('/board')}>
         <span style={{ fontSize: '1.5rem' }}>📋</span>
-        <span>掲示板</span>
+        <span style={{fontFamily: '"Noto Serif JP", serif'}}>掲示板</span>
       </Link>
       <Link to="/create" style={getStyle('/create')}>
         <span style={{ fontSize: '1.5rem' }}>➕</span>
-        <span>追加</span>
+        <span style={{fontFamily: '"Noto Serif JP", serif',}}>追加</span>
       </Link>
       <Link to="/status" style={getStyle('/status')}>
         <span style={{ fontSize: '1.5rem' }}>📊</span>
-        <span>ステータス</span>
+        <span style={{fontFamily: '"Noto Serif JP", serif',}}>ステータス</span>
       </Link>
       <Link to="/history" style={getStyle('/history')}>
         <span style={{ fontSize: '1.5rem' }}>📜</span>
-        <span>履歴</span>
+        <span style={{fontFamily: '"Noto Serif JP", serif',}}>履歴</span>
       </Link>
     </nav>
   );
