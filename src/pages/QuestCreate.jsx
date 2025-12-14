@@ -40,7 +40,9 @@ const QuestCreate = ({ onAddQuest }) => {
       
       {/* タイトル入力 */}
       <div style={{ marginBottom: '20px' }}>
-        <label style={{ fontWeight: 'bold' }}>タイトル</label>
+        <label style={{ fontWeight: 'bold',
+          fontFamily: '"Noto Serif JP", serif'
+         }}>タイトル</label>
         <input 
           type="text" 
           value={formTitle}
@@ -52,7 +54,9 @@ const QuestCreate = ({ onAddQuest }) => {
 
       {/* カテゴリ選択（3択） */}
       <div style={{ marginBottom: '20px' }}>
-        <label style={{ fontWeight: 'bold' }}>身につく力（カテゴリ）</label>
+        <label style={{ fontWeight: 'bold',
+          fontFamily: '"Noto Serif JP", serif'
+         }}>身につく力（カテゴリ）</label>
         <select 
           value={formCategory} 
           onChange={(e) => setFormCategory(e.target.value)}
@@ -66,7 +70,9 @@ const QuestCreate = ({ onAddQuest }) => {
 
       {/* 難易度選択 */}
       <div style={{ marginBottom: '30px' }}>
-        <label style={{ fontWeight: 'bold' }}>難易度</label>
+        <label style={{ fontWeight: 'bold',
+          fontFamily: '"Noto Serif JP", serif'
+         }}>難易度</label>
         <select 
           value={formDifficulty} 
           onChange={(e) => setFormDifficulty(e.target.value)}
