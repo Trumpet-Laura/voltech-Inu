@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; // 変更：useStateとuseEffectを追加
 import axios from 'axios';  // 変更：通信用のaxiosを追加
+import boardBg from '../assets/board-bg.png';
 
 // 1. Chart.js で使う部品をインポート
 import {
@@ -100,7 +101,16 @@ const StatusPage = () => {
   };
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
+    <div style={{
+      padding: '20px',
+      paddingBottom: '80px',
+      minHeight: '100vh',
+      backgroundImage: `url(${boardBg})`,
+      backgroundSize: 'cover',       // 全体にフィット
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      textAlign: 'center',
+      }}>
       <h2>現在のステータス</h2>
 
       {/* 追加：レベルと経験値を表示するエリアを追加 */}

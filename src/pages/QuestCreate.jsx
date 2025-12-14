@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import boardBg from '../assets/board-bg.png';
 
 const QuestCreate = ({ onAddQuest }) => {
   const [formTitle, setFormTitle] = useState("");
@@ -16,7 +17,13 @@ const QuestCreate = ({ onAddQuest }) => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px' 
+      , minHeight: '100vh',
+      backgroundImage: `url(${boardBg})`,
+      backgroundSize: 'cover',       // 全体にフィット
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
       <h2>新しいクエストを作成</h2>
       
       {/* タイトル入力 */}

@@ -1,9 +1,18 @@
 import React from 'react';
 import QuestItem from '../components/QuestItem';
+import boardBg from '../assets/board-bg.png';
 
 const QuestBoard = ({ quests, onComplete }) => {
   return (
-    <div style={{ padding: '20px', paddingBottom: '80px' }}>
+    <div 
+    　style={{ 
+      padding: '20px',
+       paddingBottom: '80px', 
+       minHeight: '100vh',
+        backgroundImage: `url(${boardBg})`,
+        backgroundSize: 'cover',       // 全体にフィット
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',}}>
       <h2 style={{ borderBottom: '2px solid #333', paddingBottom: '10px' }}>クエスト掲示板</h2>
       
       {quests.length === 0 ? (
